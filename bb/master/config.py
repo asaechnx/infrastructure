@@ -30,42 +30,57 @@ class Mode(Enum):
 
 BUILD = "build"
 
-BUILD_MASTER = {
-    "name": "build-master-branch",
-    "product_conf_file": "conf_linux_public.py",
-    "product_type": "linux", # Product type of master (branch) build
-    "build_type": "release",
-    "api_latest": False,
-    "gcc_version": None
-}
+BUILDERS = {
+    "build_master": {
+        "name": "build-master-branch",
+        "product_conf_file": "conf_linux_public.py",
+        "product_type": "linux", # Product type of master (branch) build
+        "build_type": "release",
+        "api_latest": False,
+        "compiler_version": None,
+        "branch": "master"
+    },
 
-BUILD_NOT_MASTER = {
-    "name": "build",
-    "product_conf_file": "conf_linux_public.py",
-    "product_type": "linux", # Product type of master (branch) build
-    "build_type": "release",
-    "api_latest": False,
-    "gcc_version": None
-}
+    "build_not_master": {
+        "name": "build",
+        "product_conf_file": "conf_linux_public.py",
+        "product_type": "linux", # Product type of master (branch) build
+        "build_type": "release",
+        "api_latest": False,
+        "compiler_version": None,
+        "branch": "(?!master)"
+    },
 
-BUILD_API_LATEST = {
-    "name": "build-api-next",
-    "product_conf_file": "conf_linux_public.py",
-    "product_type": "api_latest", # Product type of master (branch) build
-    "build_type": "release",
-    "api_latest": True,
-    "gcc_version": None
-}
+    "build_api_latest": {
+        "name": "build-api-next",
+        "product_conf_file": "conf_linux_public.py",
+        "product_type": "api_latest", # Product type of master (branch) build
+        "build_type": "release",
+        "api_latest": True,
+        "compiler_version": None,
+        "branch": ".+?"
+    },
 
-BUILD_GCC_LATEST = {
-    "name": "build-gcc-8.1.0",
-    "product_conf_file": "conf_linux_public.py",
-    "product_type": "linux_gcc_latest", # Product type of master (branch) build
-    "build_type": "release",
-    "api_latest": False,
-    "gcc_version": "8.1.0"
-}
+    "build_gcc_latest": {
+        "name": "build-gcc-8.1.0",
+        "product_conf_file": "conf_linux_public.py",
+        "product_type": "linux_gcc_latest", # Product type of master (branch) build
+        "build_type": "release",
+        "api_latest": False,
+        "compiler_version": "8.1.0",
+        "branch": ".+?"
+    },
 
+#    "build_clang_latest": {
+#        "name": "build-clang-6.0",
+#        "product_conf_file": "conf_linux_public.py",
+#        "product_type": "linux_clang_latest", # Product type of master (branch) build
+#        "build_type": "release",
+#        "api_latest": False,
+#        "compiler_version": "6.0",
+#        "branch": ".+?"
+#    }
+}
 
 TEST = {
     "name": "test",
@@ -84,7 +99,7 @@ WORKERS = {
         "b-1-10": {},
         "b-1-14": {}
     },
-    BUILD_GCC_LATEST["name"]: {
+    "build-gcc-8.1.0": { #TODO: workaround
         "b-1-18": {}
     },
     TEST["name"]: {
